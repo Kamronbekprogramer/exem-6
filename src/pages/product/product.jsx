@@ -10,7 +10,7 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
 const StyledCard = styled(Card)(({ theme }) => ({
-  maxWidth: 305,
+  maxWidth: 300,
   margin: 'auto',
   borderRadius: '10px',
   padding: "10px",
