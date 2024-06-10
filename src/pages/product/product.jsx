@@ -1,37 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import "./product.css"
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "./product.css";
 import {
-  Card, CardContent, CardMedia, Typography, Box, Button, Grid, Select, MenuItem, FormControl, InputLabel, IconButton
-} from '@mui/material';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Box,
+  Button,
+  Grid,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  IconButton,
+} from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 const StyledCard = styled(Card)(({ theme }) => ({
   maxWidth: 300,
-  margin: 'auto',
-  borderRadius: '10px',
+  margin: "auto",
+  borderRadius: "10px",
   padding: "10px",
-  boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  height: '100%',
+  boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+  height: "100%",
   "&:hover": {
     boxShadow: "0px 12px 20px rgba(0, 0, 0, 0.6)",
     scale: "1.01",
-    transition: "ease-in-out"
+    transition: "ease-in-out",
   },
 }));
 
 const StyledButton = styled(Button)(({ theme }) => ({
-  backgroundColor: '#FFC107',
-  color: '#000',
-  fontWeight: 'bold',
-  '&:hover': {
-    backgroundColor: '#FFA000',
+  backgroundColor: "#FFC107",
+  color: "#000",
+  fontWeight: "bold",
+  "&:hover": {
+    backgroundColor: "#FFA000",
   },
 }));
 
@@ -40,20 +51,25 @@ const Cars = () => {
   const [limit, setLimit] = useState(2);
 
   useEffect(() => {
-    axios.get(`https://fakestoreapi.com/products?limit=${limit}`).then(response => {
-      setUsers(response.data);
-    })
-    .catch(error => {
-      console.error('There was an error making the request', error);
-    });
+    axios
+      .get(`https://fakestoreapi.com/products?limit=${limit}`)
+      .then((response) => {
+        setUsers(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error making the request", error);
+      });
   }, [limit]);
+  if (!users) {
+    return <Typography>Loading...</Typography>;
+  }
 
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h4" align="center" gutterBottom>
         Products
       </Typography>
-      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
+      <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
         <FormControl sx={{ minWidth: 120 }}>
           <InputLabel id="select-limit-label">Select limit</InputLabel>
           <Select
@@ -78,35 +94,44 @@ const Cars = () => {
                   component="img"
                   // height="200"
                   width="50"
-                  className='card-img px-1 w-2 py-1 '
-                  image={item.image}  
+                  className="card-img px-1 w-2 py-1 "
+                  image={item.image}
                   alt={item.title}
-                  sx={{ cursor: 'pointer' }}
+                  sx={{ cursor: "pointer" }}
                 />
               </Link>
               <CardContent sx={{ flexGrow: 1 }}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Typography variant="h6" component="div">
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography variant="h6" color="primary" component="div">
                     {item.title}
                   </Typography>
                   <IconButton aria-label="add to favorites">
                     <FavoriteBorderIcon />
                   </IconButton>
                 </Box>
-                {/* <Typography variant="body2" color="text.secondary" paragraph>
-                  {item.description}
-                </Typography> */}
-                <Typography variant="body1" color="text.primary" sx={{ fontWeight: 'bold' }}>
+
+                <Typography
+                  variant="body1"
+                  color="error"
+                  sx={{ fontWeight: "bold" }}
+                >
                   {item.price.toLocaleString()} $
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="secondary">
                   Category: {item.category}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="primary">
                   Rating: {item.rating.rate} ({item.rating.count} reviews)
                 </Typography>
               </CardContent>
               <StyledButton
+                className="savat"
                 variant="contained"
                 startIcon={<ShoppingCartIcon />}
                 fullWidth
@@ -118,17 +143,19 @@ const Cars = () => {
           </Grid>
         ))}
       </Grid>
-      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
         <Button variant="contained" color="primary" sx={{ mx: 2 }}>
           Prev
         </Button>
-        <Typography variant="body1" sx={{ my: 'auto' }}>1</Typography>
+        <Typography variant="body1" sx={{ my: "auto" }}>
+          1
+        </Typography>
         <Button variant="contained" color="primary" sx={{ mx: 2 }}>
           Next
         </Button>
       </Box>
     </Box>
   );
-}
+};
 
 export default Cars;

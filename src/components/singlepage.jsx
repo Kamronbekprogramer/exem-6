@@ -1,103 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-// import "./singlepage"
-// import { useParams } from "react-router-dom";
-// import {
-//   Box,
-//   Typography,
-//   Card,
-//   CardContent,
-//   CardMedia,
-//   Button,
-// } from "@mui/material";
-// import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-// import styled from "@emotion/styled";
-
-// const StyledCard = styled(Card)(({ theme }) => ({
-//   maxWidth: 600,
-//   margin: "auto",
-//   borderRadius: "10px",
-//   boxShadow: "0px 10px 16px rgba(0, 0, 0, 0.2)",
-//   transition: "box-shadow 0.3s ease",
-//   "&:hover": {
-//     boxShadow: "0px 12px 20px rgba(0, 0, 0, 0.6)",
-//     scale: "1.01",
-//     transition: "ease-in-out"
-//   },
-// }));
-
-// const StyledButton = styled(Button)(({ theme }) => ({
-//   backgroundColor: "#FFC107",
-//   color: "#000",
-//   fontWeight: "bold",
-//   "&:hover": {
-//     backgroundColor: "#FFA000",
-//   },
-// }));
-
-// const ProductDetails = () => {
-//   const { id } = useParams();
-//   const [product, setProduct] = useState(null);
-
-//   useEffect(() => {
-//     axios.get(`https://fakestoreapi.com/products/${id}`).then((response) => {
-//       setProduct(response.data);
-//     });
-//   }, [id]);
-
-//   if (!product) {
-//     return <Typography>Loading...</Typography>;
-//   }
-
-//   return (
-//     <Box className="hover:scale-0.5" sx={{ p: 3 }}>
-//       <StyledCard>
-//         <CardMedia
-//           component="img"
-//           height="500"
-//           width="250"
-          
-//           className="px-1 w-2 py-1 p-3 rounded"
-//           image={product.image}
-//           alt={product.title}
-//         />
-//         <CardContent>
-//           <Typography variant="h5" component="div" gutterBottom>
-//             {product.title}
-//           </Typography>
-//           <Typography variant="body2" color="text.secondary" paragraph>
-//             {product.description}
-//           </Typography>
-//           <Typography
-//             variant="body1"
-//             color="text.primary"
-//             sx={{ fontWeight: "bold" }}
-//           >
-//             {product.price.toLocaleString()} $
-//           </Typography>
-//           <Typography variant="body2" color="text.secondary">
-//             Category: {product.category}
-//           </Typography>
-//           <Typography variant="body2" color="text.secondary">
-//             Rating: {product.rating.rate} ({product.rating.count} reviews)
-//           </Typography>
-//           <StyledButton
-//             variant="contained"
-//             startIcon={<ShoppingCartIcon />}
-//             fullWidth
-//             sx={{ mt: 2 }}
-//           >
-//             Savatga
-//           </StyledButton>
-//         </CardContent>
-//       </StyledCard>
-//     </Box>
-//   );
-// };
-
-// export default ProductDetails;
-
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -121,7 +21,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import styled from "@emotion/styled";
 
 const StyledCard = styled(Card)(({ theme }) => ({
-  maxWidth: 900,
+  maxWidth: 600,
   margin: "auto",
   borderRadius: "10px",
   boxShadow: "0px 10px 16px rgba(0, 0, 0, 0.2)",
@@ -154,8 +54,9 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
-    axios.get(`https://fakestoreapi.com/products/${id}`)
-         .then((response) => {setProduct(response.data) });
+    axios.get(`https://fakestoreapi.com/products/${id}`).then((response) => {
+      setProduct(response.data);
+    });
   }, [id]);
 
   if (!product) {
@@ -184,37 +85,44 @@ const ProductDetails = () => {
 
   return (
     <Box sx={{ p: 3 }}>
-      <StyledCard>
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
+          <StyledCard>
             <CardMedia
               component="img"
-              height="100%"
+              height="600px"
               image={product.image}
               alt={product.title}
               sx={{ objectFit: "contain", p: 2 }}
             />
-          </Grid>
-          <Grid item xs={12} md={6}>
+          </StyledCard>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <StyledCard>
             <CardContent>
-              <Typography variant="h5" component="div" gutterBottom>
+              <Typography
+                variant="h5"
+                component="div"
+                color="error"
+                gutterBottom
+              >
                 {product.title}
               </Typography>
-              <Typography variant="body2" color="text.secondary" paragraph>
+              <Typography variant="body2" color="primary" paragraph>
                 {product.description}
               </Typography>
               <Typography
                 variant="body1"
-                color="text.primary"
+                color="error"
                 sx={{ fontWeight: "bold" }}
               >
-                {product.price.toLocaleString()} $
+                Price: {product.price.toLocaleString()} $
               </Typography>
-              <Typography variant="body2" color="text.secondary" paragraph>
+              <Typography variant="body2" color="secondary" paragraph>
                 Category: {product.category}
               </Typography>
               <Box sx={{ mb: 2 }}>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="secondary">
                   Rating:
                 </Typography>
                 <Rating
@@ -225,7 +133,7 @@ const ProductDetails = () => {
                 />
               </Box>
               <Box sx={{ mb: 2 }}>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="secondary">
                   Size:
                 </Typography>
                 <ToggleButtonGroup
@@ -252,7 +160,7 @@ const ProductDetails = () => {
                 </ToggleButtonGroup>
               </Box>
               <Box sx={{ mb: 2 }}>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="secondary">
                   Color:
                 </Typography>
                 <ToggleButtonGroup
@@ -269,19 +177,26 @@ const ProductDetails = () => {
                   </ToggleButton>
                 </ToggleButtonGroup>
               </Box>
-              <Box sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
-                <Typography variant="body2" color="text.secondary" sx={{ mr: 2 }}>
+              <Box sx={{ mb: 2, display: "flex", alignItems: "center" }}>
+                <Typography variant="body2" color="secondary" sx={{ mr: 2 }}>
                   Quantity:
                 </Typography>
-                <QuantityButton onClick={handleDecrement} aria-label="decrease quantity">
+                <QuantityButton
+                  className="border"
+                  onClick={handleDecrement}
+                  aria-label="decrease quantity"
+                >
                   <RemoveIcon />
                 </QuantityButton>
                 <TextField
                   value={quantity}
                   inputProps={{ readOnly: true }}
-                  sx={{ width: 50, textAlign: 'center' }}
+                  sx={{ width: 40, height: 50, textAlign: "center" }}
                 />
-                <QuantityButton onClick={handleIncrement} aria-label="increase quantity">
+                <QuantityButton
+                  onClick={handleIncrement}
+                  aria-label="increase quantity"
+                >
                   <AddIcon />
                 </QuantityButton>
               </Box>
@@ -294,9 +209,9 @@ const ProductDetails = () => {
                 Savatga
               </StyledButton>
             </CardContent>
-          </Grid>
+          </StyledCard>
         </Grid>
-      </StyledCard>
+      </Grid>
     </Box>
   );
 };
