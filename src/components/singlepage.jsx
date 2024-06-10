@@ -45,6 +45,25 @@ const QuantityButton = styled(IconButton)(({ theme }) => ({
   },
 }));
 
+const Footer = styled(Box)(({ theme }) => ({
+  backgroundColor: "#000",
+  color: "#fff",
+  padding: "20px 10px",
+  textAlign: "center",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  right: 0,
+  width: "100%",
+  boxSizing: "border-box",
+}));
+
+const Container = styled(Box)(({ theme }) => ({
+  position: "relative",
+  minHeight: "100vh",
+  paddingBottom: "100px",
+}));
+
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -84,7 +103,13 @@ const ProductDetails = () => {
             alt=""
           />
           <CardContent>
-            <Typography width="500" height="10" variant="h5" bgcolor="grey" component="div"></Typography>
+            <Typography
+              width="500"
+              height="10"
+              variant="h5"
+              bgcolor="grey"
+              component="div"
+            ></Typography>
             <Typography variant="body2" color="text.secondary"></Typography>
           </CardContent>
         </StyledCard>
@@ -113,135 +138,145 @@ const ProductDetails = () => {
   };
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
-          <StyledCard>
-            <CardMedia
-              component="img"
-              height="600px"
-              image={product.image}
-              alt={product.title}
-              sx={{ objectFit: "contain", p: 2 }}
-            />
-          </StyledCard>
+    <Container>
+      <Box sx={{ p: 3 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <StyledCard>
+              <CardMedia
+                component="img"
+                height="600px"
+                image={product.image}
+                alt={product.title}
+                sx={{ objectFit: "contain", p: 2 }}
+              />
+            </StyledCard>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <StyledCard>
+              <CardContent>
+                <Typography
+                  variant="h5"
+                  component="div"
+                  color="error"
+                  gutterBottom
+                >
+                  {product.title}
+                </Typography>
+                <Typography variant="body2" color="primary" paragraph>
+                  {product.description}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="error"
+                  sx={{ fontWeight: "bold" }}
+                >
+                  Price: {product.price.toLocaleString()} $
+                </Typography>
+                <Typography variant="body2" color="secondary" paragraph>
+                  Category: {product.category}
+                </Typography>
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="body2" color="secondary">
+                    Rating:
+                  </Typography>
+                  <Rating
+                    name="product-rating"
+                    value={rating}
+                    onChange={handleRatingChange}
+                    precision={0.5}
+                  />
+                </Box>
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="body2" color="secondary">
+                    Size:
+                  </Typography>
+                  <ToggleButtonGroup
+                    value={size}
+                    exclusive
+                    onChange={handleSizeChange}
+                    aria-label="product size"
+                  >
+                    <ToggleButton value="XS" aria-label="extra small">
+                      XS
+                    </ToggleButton>
+                    <ToggleButton value="S" aria-label="small">
+                      S
+                    </ToggleButton>
+                    <ToggleButton value="M" aria-label="medium">
+                      M
+                    </ToggleButton>
+                    <ToggleButton value="L" aria-label="large">
+                      L
+                    </ToggleButton>
+                    <ToggleButton value="XL" aria-label="extra large">
+                      XL
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                </Box>
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="body2" color="secondary">
+                    Color:
+                  </Typography>
+                  <ToggleButtonGroup
+                    value={color}
+                    exclusive
+                    onChange={handleColorChange}
+                    aria-label="product color"
+                  >
+                    <ToggleButton value="blue" aria-label="blue">
+                      Blue
+                    </ToggleButton>
+                    <ToggleButton value="red" aria-label="red">
+                      Red
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                </Box>
+                <Box sx={{ mb: 2, display: "flex", alignItems: "center" }}>
+                  <Typography variant="body2" color="secondary" sx={{ mr: 2 }}>
+                    Quantity:
+                  </Typography>
+                  <QuantityButton
+                    className="border"
+                    onClick={handleDecrement}
+                    aria-label="decrease quantity"
+                  >
+                    <RemoveIcon />
+                  </QuantityButton>
+                  <TextField
+                    value={quantity}
+                    inputProps={{ readOnly: true }}
+                    sx={{ width: 40, height: 50, textAlign: "center" }}
+                  />
+                  <QuantityButton
+                    onClick={handleIncrement}
+                    aria-label="increase quantity"
+                  >
+                    <AddIcon />
+                  </QuantityButton>
+                </Box>
+                <StyledButton
+                  variant="contained"
+                  startIcon={<ShoppingCartIcon />}
+                  fullWidth
+                  sx={{ mt: 2 }}
+                >
+                  Add to Cart
+                </StyledButton>
+              </CardContent>
+            </StyledCard>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <StyledCard>
-            <CardContent>
-              <Typography
-                variant="h5"
-                component="div"
-                color="error"
-                gutterBottom
-              >
-                {product.title}
-              </Typography>
-              <Typography variant="body2" color="primary" paragraph>
-                {product.description}
-              </Typography>
-              <Typography
-                variant="body1"
-                color="error"
-                sx={{ fontWeight: "bold" }}
-              >
-                Price: {product.price.toLocaleString()} $
-              </Typography>
-              <Typography variant="body2" color="secondary" paragraph>
-                Category: {product.category}
-              </Typography>
-              <Box sx={{ mb: 2 }}>
-                <Typography variant="body2" color="secondary">
-                  Rating:
-                </Typography>
-                <Rating
-                  name="product-rating"
-                  value={rating}
-                  onChange={handleRatingChange}
-                  precision={0.5}
-                />
-              </Box>
-              <Box sx={{ mb: 2 }}>
-                <Typography variant="body2" color="secondary">
-                  Size:
-                </Typography>
-                <ToggleButtonGroup
-                  value={size}
-                  exclusive
-                  onChange={handleSizeChange}
-                  aria-label="product size"
-                >
-                  <ToggleButton value="XS" aria-label="extra small">
-                    XS
-                  </ToggleButton>
-                  <ToggleButton value="S" aria-label="small">
-                    S
-                  </ToggleButton>
-                  <ToggleButton value="M" aria-label="medium">
-                    M
-                  </ToggleButton>
-                  <ToggleButton value="L" aria-label="large">
-                    L
-                  </ToggleButton>
-                  <ToggleButton value="XL" aria-label="extra large">
-                    XL
-                  </ToggleButton>
-                </ToggleButtonGroup>
-              </Box>
-              <Box sx={{ mb: 2 }}>
-                <Typography variant="body2" color="secondary">
-                  Color:
-                </Typography>
-                <ToggleButtonGroup
-                  value={color}
-                  exclusive
-                  onChange={handleColorChange}
-                  aria-label="product color"
-                >
-                  <ToggleButton value="blue" aria-label="blue">
-                    Blue
-                  </ToggleButton>
-                  <ToggleButton value="red" aria-label="red">
-                    Red
-                  </ToggleButton>
-                </ToggleButtonGroup>
-              </Box>
-              <Box sx={{ mb: 2, display: "flex", alignItems: "center" }}>
-                <Typography variant="body2" color="secondary" sx={{ mr: 2 }}>
-                  Quantity:
-                </Typography>
-                <QuantityButton
-                  className="border"
-                  onClick={handleDecrement}
-                  aria-label="decrease quantity"
-                >
-                  <RemoveIcon />
-                </QuantityButton>
-                <TextField
-                  value={quantity}
-                  inputProps={{ readOnly: true }}
-                  sx={{ width: 40, height: 50, textAlign: "center" }}
-                />
-                <QuantityButton
-                  onClick={handleIncrement}
-                  aria-label="increase quantity"
-                >
-                  <AddIcon />
-                </QuantityButton>
-              </Box>
-              <StyledButton
-                variant="contained"
-                startIcon={<ShoppingCartIcon />}
-                fullWidth
-                sx={{ mt: 2 }}
-              >
-                Savatga
-              </StyledButton>
-            </CardContent>
-          </StyledCard>
-        </Grid>
-      </Grid>
-    </Box>
+      </Box>
+      <Footer className="py-0 px-1 my-0">
+        <Typography variant="h6">Contact Us</Typography>
+        <Typography variant="body1">
+          Email: jumaboyevkamronbek05@gmail.com
+        </Typography>
+        <Typography variant="body1">Phone: +998 93 594 20 05</Typography>
+        <Typography variant="body1">Address: UZB, Tashkent</Typography>
+      </Footer>
+    </Container>
   );
 };
 
