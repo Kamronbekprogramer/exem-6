@@ -60,7 +60,36 @@ const ProductDetails = () => {
   }, [id]);
 
   if (!product) {
-    return <Typography>Loading...</Typography>;
+    return (
+      <Grid className="d-flex">
+        <StyledCard sx={{ width: "40rem", margin: "auto", mt: 5 }}>
+          <CardMedia
+            component="img"
+            width="550"
+            height="550"
+            image="..."
+            alt=""
+          />
+          <CardContent>
+            <Typography variant="h5" component="div"></Typography>
+            <Typography variant="body2" color="text.secondary"></Typography>
+          </CardContent>
+        </StyledCard>
+        <StyledCard sx={{ width: "40rem", margin: "auto", mt: 5 }}>
+          <CardMedia
+            component="img"
+            width="550"
+            height="550"
+            image="..."
+            alt=""
+          />
+          <CardContent>
+            <Typography width="500" height="10" variant="h5" bgcolor="grey" component="div"></Typography>
+            <Typography variant="body2" color="text.secondary"></Typography>
+          </CardContent>
+        </StyledCard>
+      </Grid>
+    );
   }
 
   const handleRatingChange = (event, newValue) => {
