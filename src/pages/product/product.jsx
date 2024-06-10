@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Aos from "aos";
 import "./product.css";
 import {
   Card,
@@ -62,12 +63,16 @@ const Footer = styled(Box)(({ theme }) => ({
 const Container = styled(Box)(({ theme }) => ({
   position: "relative",
   minHeight: "100vh",
-  paddingBottom: "100px", // Space for the footer
+  paddingBottom: "100px",
 }));
 
 const Cars = () => {
   const [users, setUsers] = useState([]);
   const [limit, setLimit] = useState(2);
+
+  useEffect(() => {
+    Aos.init({ duration: 1000 });
+  }, []);
 
   useEffect(() => {
     axios
@@ -108,7 +113,11 @@ const Cars = () => {
         <Grid container spacing={3}>
           {users.map((item, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
-              <StyledCard>
+              <StyledCard
+                data-aos="zoom-in-up"
+                data-aos-easing="ease-out-cubic"
+                data-aos-duration="1000"
+              >
                 <Link to={`/main/index/${item.id}`}>
                   <CardMedia
                     component="img"
@@ -127,7 +136,7 @@ const Cars = () => {
                     }}
                   >
                     <Typography variant="h6" color="primary" component="div">
-                      {item.title}
+                   <p>   {item.title}</p>
                     </Typography>
                     <IconButton aria-label="add to favorites">
                       <FavoriteBorderIcon />

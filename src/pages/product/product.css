@@ -1,5 +1,12 @@
 .card-img {
-    object-fit: cover;
-    width: 120px !important;
-    margin: auto;
+  object-fit: cover;
+  width: 120px !important;
+  margin: auto;
+  object-fit: contain;
+}
+p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }

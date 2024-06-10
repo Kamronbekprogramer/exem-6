@@ -261,7 +261,7 @@ const ProductDetails = () => {
                   fullWidth
                   sx={{ mt: 2 }}
                 >
-                  Add to Cart
+                  Savatga
                 </StyledButton>
               </CardContent>
             </StyledCard>
